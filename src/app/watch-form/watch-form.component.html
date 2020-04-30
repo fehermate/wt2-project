@@ -1,0 +1,20 @@
+<div class="example-container">
+  <mat-form-field appearance="fill">
+    <mat-label>Price</mat-label>
+    <input matInput placeholder="$1500" [formControl]="price" required>
+    <mat-error *ngIf="price.invalid">{{getErrorMessage()}}</mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Model</mat-label>
+    <input matInput placeholder="X123" [formControl]="model" required>
+    <mat-error *ngIf="model.invalid">{{getErrorMessage()}}</mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Case Material</mat-label>
+    <mat-select>
+      <mat-option value="steel">Stainless Steel</mat-option>
+      <mat-option value="plastic">Plastic</mat-option>
+      <mat-option value="precious">Precious Metal</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>

@@ -1,8 +1,45 @@
-<p>Price</p>
-<p>Brand</p>
-<p>Gender</p><p>Movement</p>
-<p>Case Material</p>
-<p>Strap Material</p>
-<p>Water Resistance</p>
+<table mat-table
+       [dataSource]="dataSource" multiTemplateDataRows
+       class="mat-elevation-z8">
+  <ng-container *ngFor="let column of columnsToDisplay" matColumnDef="{{column}}">
+    <th mat-header-cell *matHeaderCellDef> {{column}} </th>
+    <td mat-cell *matCellDef="let watch"> {{watch[column]}} </td>
+  </ng-container>
 
+  <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+  <ng-container matColumnDef="expandedDetail">
+    <td mat-cell *matCellDef="let watch" [attr.colspan]="columnsToDisplay.length">
+      <div class="example-element-detail"
+           [@detailExpand]="watch == expandedWatch ? 'expanded' : 'collapsed'">
+        <div class="example-element-diagram">
+          <div class="example-element-position"> {{watch.price}} </div>
+          <div class="example-element-symbol"> {{watch.brand}} </div>
+          <div class="example-element-name"> {{watch.model}} </div>
+          <div class="example-element-weight"> {{watch.gender}} </div>
+        </div>
+        <div class="example-element-description">
+          {{watch.description}}
+          <span class="example-element-description-attribution"> -- Wikipedia </span>
+        </div>
+      </div>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+  <tr mat-row *matRowDef="let watch; columns: columnsToDisplay;"
+      class="example-element-row"
+      [class.example-expanded-row]="expandedWatch === watch"
+      (click)="expandedWatch = expandedWatch === watch ? null : watch">
+  </tr>
+  <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+</table>
+
+<div *ngFor="let watch of watches">
+  <p>Price : {{watch.price}}</p>
+  <p>Brand : {{watch.brand}}</p>
+  <p>Model : {{watch.model}}</p>
+  <p>Gender : {{watch.gender}}</p>
+  <p>Movement : {{watch.movement}}</p>
+  <p>Case Material : {{watch.caseMaterial}}</p>
+</div>
 
