@@ -1,47 +1,25 @@
 import {Injectable} from '@angular/core';
 import {Watch} from "./watch";
+import {Observable} from "rxjs";
+import {HttpClient} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
 })
 export class WatchesService {
-  constructor() { }
+  constructor(private http:HttpClient) { }
+  url: string = "http://localhost:3001/api"
 
-  getWatches(filters: string[] = []): Watch[] {
-    let dbString : string;
-
-    if(filters.length == 0) {
-      //return all
-      dbString = "*";
-    } else if(filters.length == 1) {
-      dbString = filters[0];
-    } else {
-      dbString = filters.join(", ");
-    }
-
-    return this.getWatchesFromDb(dbString);
+  add(watch: Watch): Observable<Watch> {
+    return this.http.post<Watch>(this.url + '/post', watch);
   }
-
-  getWatchesFromDb(queryString: string): Watch[] {
-    let mockWatches: Watch[];
-    mockWatches = [
-      {
-        price: 250.0,
-        brand: "brand",
-        model: "model",
-        gender: "F",
-        movement: "automatic",
-        caseMaterial: "steel"
-      },
-      {
-        price: 500.0,
-        brand: "brand2",
-        model: "model2",
-        gender: "M",
-        movement: "quartz",
-        caseMaterial: "plastic"
-      },
-    ];
-    return mockWatches;
+  update(watch: Watch): Observable<Watch> {
+    return this.http.put<Watch>(this.url + '/update', watch);
+  }
+  delete(watch: Watch): Observable<Watch> {
+    return this.http.delete<Watch>(this.url + '/delete/' + watch.model);
+  }
+  getAll(): Observable<Watch[]> {
+    return this.http.get<Watch[]>(this.url + '/get-all');
   }
 }

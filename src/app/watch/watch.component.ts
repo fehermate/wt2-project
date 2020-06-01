@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import { WatchesService } from "../watches.service";
+import {MatTableDataSource} from "@angular/material/table";
+import {MatSort} from "@angular/material/sort";
+import {MatPaginator} from "@angular/material/paginator";
 //import {Watch} from "../watch";
 
 @Component({
@@ -19,15 +22,25 @@ import { WatchesService } from "../watches.service";
 
 export class WatchComponent implements OnInit {
   watches: Watch[];
-  dataSource = DATA;
-  columnsToDisplay = ['Price', 'Brand', 'Model', 'Gender', 'Movement', 'Case Material'];
+  dataSource =  new MatTableDataSource(DATA);
+  columnsToDisplay = ["price", "brand", "model", "gender", "movement", "caseMaterial"];
   expandedWatch: Watch | null;
 
-  constructor(service: WatchesService) {
-    this.watches = service.getWatches();
-  }
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
+
+  //constructor(service: WatchesService) {
+  //  this.watches = service.getWatches();
+  //}
 
   ngOnInit(): void {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
 }
@@ -49,6 +62,94 @@ const DATA: Watch[] = [
     gender: "F",
     movement: "automatic",
     caseMaterial: "steel"
+  },
+  {
+    price: 500.0,
+    brand: "brand2",
+    model: "model2",
+    gender: "M",
+    movement: "quartz",
+    caseMaterial: "plastic"
+  },
+  {
+    price: 500.0,
+    brand: "brand2",
+    model: "model2",
+    gender: "M",
+    movement: "quartz",
+    caseMaterial: "plastic"
+  },
+  {
+    price: 500.0,
+    brand: "brand2",
+    model: "model2",
+    gender: "M",
+    movement: "quartz",
+    caseMaterial: "plastic"
+  },
+  {
+    price: 500.0,
+    brand: "brand2",
+    model: "model2",
+    gender: "M",
+    movement: "quartz",
+    caseMaterial: "plastic"
+  },
+  {
+    price: 500.0,
+    brand: "brand2",
+    model: "model2",
+    gender: "M",
+    movement: "quartz",
+    caseMaterial: "plastic"
+  },
+  {
+    price: 500.0,
+    brand: "brand2",
+    model: "model2",
+    gender: "M",
+    movement: "quartz",
+    caseMaterial: "plastic"
+  },
+  {
+    price: 500.0,
+    brand: "brand2",
+    model: "model2",
+    gender: "M",
+    movement: "quartz",
+    caseMaterial: "plastic"
+  },
+  {
+    price: 500.0,
+    brand: "brand2",
+    model: "model2",
+    gender: "M",
+    movement: "quartz",
+    caseMaterial: "plastic"
+  },
+  {
+    price: 500.0,
+    brand: "brand2",
+    model: "model2",
+    gender: "M",
+    movement: "quartz",
+    caseMaterial: "plastic"
+  },
+  {
+    price: 500.0,
+    brand: "brand2",
+    model: "model2",
+    gender: "M",
+    movement: "quartz",
+    caseMaterial: "plastic"
+  },
+  {
+    price: 500.0,
+    brand: "brand2",
+    model: "model2",
+    gender: "M",
+    movement: "quartz",
+    caseMaterial: "plastic"
   },
   {
     price: 500.0,

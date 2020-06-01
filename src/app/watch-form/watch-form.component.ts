@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, Validators} from '@angular/forms';
-
 @Component({
   selector: 'app-watch-form',
   templateUrl: './watch-form.component.html',
   styleUrls: ['./watch-form.component.css']
 })
 export class WatchFormComponent implements OnInit {
-  price = new FormControl('', [Validators.required, Validators.maxLength(10), Validators.min(0)]);
+  price = new FormControl('', [Validators.required, Validators.maxLength(10)]);
   model = new FormControl('', [Validators.required, Validators.maxLength(100)]);
 
   constructor() { }

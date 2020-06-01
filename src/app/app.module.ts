@@ -11,6 +11,11 @@ import { WatchFormComponent } from './watch-form/watch-form.component';
 import {MatTableModule} from "@angular/material/table";
 import {MatOptionModule} from "@angular/material/core";
 import {MatSelectModule} from "@angular/material/select";
+import {MatInputModule} from '@angular/material/input';
+import {HttpClientModule} from "@angular/common/http";
+import {MatSortModule} from "@angular/material/sort";
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 @NgModule({
   declarations: [
@@ -18,28 +23,24 @@ import {MatSelectModule} from "@angular/material/select";
     WatchComponent,
     WatchFormComponent
   ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatTableModule,
-    MatTableModule,
-    MatTableModule,
-    MatTableModule,
-    MatTableModule,
-    MatTableModule,
-    MatTableModule,
-    MatTableModule,
-    MatTableModule,
-    MatTableModule,
-    MatTableModule,
-    MatOptionModule,
-    MatSelectModule,
-    ReactiveFormsModule
-  ],
+    imports: [
+      BrowserModule,
+      FormsModule,
+      AppRoutingModule,
+      BrowserAnimationsModule,
+      MatOptionModule,
+      MatSelectModule,
+      ReactiveFormsModule,
+      HttpClientModule,
+      MatInputModule,
+      MatTableModule,
+      MatPaginatorModule,
+      MatSortModule,
+      MatProgressSpinnerModule
+    ],
   providers: [
-    WatchesService
+    WatchesService,
+
   ],
   bootstrap: [AppComponent]
 })

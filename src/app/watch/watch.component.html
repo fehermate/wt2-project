@@ -1,39 +1,54 @@
-<table mat-table
-       [dataSource]="dataSource" multiTemplateDataRows
-       class="mat-elevation-z8">
-  <ng-container *ngFor="let column of columnsToDisplay" matColumnDef="{{column}}">
-    <th mat-header-cell *matHeaderCellDef> {{column}} </th>
-    <td mat-cell *matCellDef="let watch"> {{watch[column]}} </td>
-  </ng-container>
+<mat-form-field class="value-filter">
+  <mat-label>Filter</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Rolex">
+</mat-form-field>
 
-  <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
-  <ng-container matColumnDef="expandedDetail">
-    <td mat-cell *matCellDef="let watch" [attr.colspan]="columnsToDisplay.length">
-      <div class="example-element-detail"
-           [@detailExpand]="watch == expandedWatch ? 'expanded' : 'collapsed'">
-        <div class="example-element-diagram">
-          <div class="example-element-position"> {{watch.price}} </div>
-          <div class="example-element-symbol"> {{watch.brand}} </div>
-          <div class="example-element-name"> {{watch.model}} </div>
-          <div class="example-element-weight"> {{watch.gender}} </div>
-        </div>
-        <div class="example-element-description">
-          {{watch.description}}
-          <span class="example-element-description-attribution"> -- Wikipedia </span>
-        </div>
-      </div>
-    </td>
-  </ng-container>
+<div class="mat-elevation-z8">
+  <mat-table class="watches-table" [dataSource]="dataSource"
+             matSort matSortDirection="asc" matSortDisableClear>
 
-  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-  <tr mat-row *matRowDef="let watch; columns: columnsToDisplay;"
-      class="example-element-row"
-      [class.example-expanded-row]="expandedWatch === watch"
-      (click)="expandedWatch = expandedWatch === watch ? null : watch">
-  </tr>
-  <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
-</table>
+    <ng-container matColumnDef="price">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Price</mat-header-cell>
+      <mat-cell *matCellDef="let watch">{{watch.price}}</mat-cell>
+    </ng-container>
 
+    <ng-container matColumnDef="brand">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Brand</mat-header-cell>
+      <mat-cell class="description-cell"
+           *matCellDef="let watch">{{watch.brand}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="model">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Model</mat-header-cell>
+      <mat-cell class="duration-cell"
+           *matCellDef="let watch">{{watch.model}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="gender">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Gender</mat-header-cell>
+      <mat-cell class="duration-cell"
+           *matCellDef="let watch">{{watch.gender}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="movement">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Movement</mat-header-cell>
+      <mat-cell class="duration-cell"
+           *matCellDef="let watch">{{watch.movement}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="caseMaterial">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Case Material</mat-header-cell>
+      <mat-cell class="duration-cell"
+           *matCellDef="let watch">{{watch.caseMaterial}}</mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="columnsToDisplay; sticky: true"></mat-header-row>
+
+    <mat-row *matRowDef="let row; columns: columnsToDisplay"></mat-row>
+
+  </mat-table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 50, 100, 250, 500]" showFirstLastButtons></mat-paginator>
+</div>
 <div *ngFor="let watch of watches">
   <p>Price : {{watch.price}}</p>
   <p>Brand : {{watch.brand}}</p>
