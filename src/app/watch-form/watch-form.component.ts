@@ -1,13 +1,30 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, Validators} from '@angular/forms';
+import {FormGroup, FormControl, Validators} from '@angular/forms';
 @Component({
   selector: 'app-watch-form',
   templateUrl: './watch-form.component.html',
   styleUrls: ['./watch-form.component.css']
 })
 export class WatchFormComponent implements OnInit {
-  price = new FormControl('', [Validators.required, Validators.maxLength(10)]);
-  model = new FormControl('', [Validators.required, Validators.maxLength(100)]);
+
+  price = new FormControl('', Validators.required);
+  brand = new FormControl('', Validators.required);
+  model = new FormControl('', Validators.required);
+  gender = new FormControl('', Validators.required);
+  movement = new FormControl('', Validators.required);
+  caseMaterial = new FormControl('', Validators.required);
+
+
+  watchForm = new FormGroup(
+    {
+      price: this.price,
+      brand: this.brand,
+      model: this.model,
+      gender: this.gender,
+      movement: this.movement,
+      caseMaterial: this.caseMaterial
+    }
+  )
 
   constructor() { }
 
@@ -20,6 +37,10 @@ export class WatchFormComponent implements OnInit {
     }
 
     return this.price.hasError('length') ? 'Not a valid length' : '';
+  }
+
+  onSubmit(){
+    console.log("submit!");
   }
 
 }

@@ -1,3 +1,14 @@
+.example-container {
+  margin: auto;
+  width: 25%;
+  padding: 10px;
+  text-align: center;
+}
+
 .example-container .mat-form-field + .mat-form-field {
   margin-left: 8px;
+}
+
+.form-element {
+  margin-top: 8px;
 }

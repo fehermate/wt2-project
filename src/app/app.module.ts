@@ -16,28 +16,49 @@ import {HttpClientModule} from "@angular/common/http";
 import {MatSortModule} from "@angular/material/sort";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {RouterModule} from "@angular/router";
+import { LandingComponent } from './landing/landing.component';
+import { NotFoundComponent } from './not-found/not-found.component';
+import {MatButton, MatButtonModule} from "@angular/material/button";
+import { HeaderComponent } from './header/header.component';
+import {MatDividerModule} from "@angular/material/divider";
+import {MatIconModule} from "@angular/material/icon";
 
 @NgModule({
   declarations: [
     AppComponent,
     WatchComponent,
-    WatchFormComponent
+    WatchFormComponent,
+    LandingComponent,
+    NotFoundComponent,
+    HeaderComponent
   ],
-    imports: [
-      BrowserModule,
-      FormsModule,
-      AppRoutingModule,
-      BrowserAnimationsModule,
-      MatOptionModule,
-      MatSelectModule,
-      ReactiveFormsModule,
-      HttpClientModule,
-      MatInputModule,
-      MatTableModule,
-      MatPaginatorModule,
-      MatSortModule,
-      MatProgressSpinnerModule
-    ],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatOptionModule,
+    MatSelectModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    MatInputModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatProgressSpinnerModule,
+    MatToolbarModule,
+    MatButtonModule,
+    RouterModule.forRoot([
+      {path: '', component: LandingComponent},
+      {path: 'add-watch', component: WatchFormComponent},
+      {path: 'list-watches', component: WatchComponent},
+      {path: '**', component: NotFoundComponent}
+    ]),
+    MatDividerModule,
+    MatIconModule,
+  ],
   providers: [
     WatchesService,
 
