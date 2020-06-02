@@ -9,14 +9,7 @@ import {MatPaginator} from "@angular/material/paginator";
 @Component({
   selector: 'app-watch',
   templateUrl: './watch.component.html',
-  styleUrls: ['./watch.component.css'],
-  animations: [
-    trigger('detailExpand', [
-      state('collapsed', style({height: '0px', minHeight: '0'})),
-      state('expanded', style({height: '*'})),
-      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
-    ]),
-  ],
+  styleUrls: ['./watch.component.css']
 })
 
 
@@ -29,11 +22,12 @@ export class WatchComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-  //constructor(service: WatchesService) {
-  //  this.watches = service.getWatches();
-  //}
+  constructor(service: WatchesService) {
+    //this.watches = service.getAll().subscribe();
+  }
 
   ngOnInit(): void {
+    this.dataSource = new MatTableDataSource(DATA);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }

@@ -28,3 +28,15 @@
 .spinner-container mat-spinner {
   margin: 130px auto 0 auto;
 }
+
+.watch-page-content {
+  width: 50%;
+  text-align: center;
+  margin: 10px auto;
+}
+
+.value-filter {
+  font-size: 24px;
+  width: 50%;
+}
+

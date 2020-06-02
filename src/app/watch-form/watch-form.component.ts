@@ -7,12 +7,12 @@ import {FormGroup, FormControl, Validators} from '@angular/forms';
 })
 export class WatchFormComponent implements OnInit {
 
-  price = new FormControl('', Validators.required);
-  brand = new FormControl('', Validators.required);
-  model = new FormControl('', Validators.required);
-  gender = new FormControl('', Validators.required);
-  movement = new FormControl('', Validators.required);
-  caseMaterial = new FormControl('', Validators.required);
+  price = new FormControl('', [Validators.required, Validators.min(1)]);
+  brand = new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(24)]);
+  model = new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(24)]);
+  gender = new FormControl('', [Validators.required]);
+  movement = new FormControl('', [Validators.required]);
+  caseMaterial = new FormControl('', [Validators.required]);
 
 
   watchForm = new FormGroup(
@@ -32,11 +32,17 @@ export class WatchFormComponent implements OnInit {
   }
 
   getErrorMessage() {
-    if (this.price.hasError('required')) {
+    if (this.price.hasError('required') ||
+      this.brand.hasError('required') ||
+      this.model.hasError('required') ||
+      this.gender.hasError('required') ||
+      this.movement.hasError('required') ||
+      this.caseMaterial.hasError('required')
+  ) {
       return 'You must enter a value';
     }
 
-    return this.price.hasError('length') ? 'Not a valid length' : '';
+    return this.watchForm.hasError('length') ? 'Not a valid length' : '';
   }
 
   onSubmit(){

@@ -24,6 +24,7 @@ import {MatButton, MatButtonModule} from "@angular/material/button";
 import { HeaderComponent } from './header/header.component';
 import {MatDividerModule} from "@angular/material/divider";
 import {MatIconModule} from "@angular/material/icon";
+import {MatCardModule} from "@angular/material/card";
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import {MatIconModule} from "@angular/material/icon";
     ]),
     MatDividerModule,
     MatIconModule,
+    MatCardModule,
   ],
   providers: [
     WatchesService,

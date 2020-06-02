@@ -1,5 +1,5 @@
 .example-container {
-  margin: auto;
+  margin: 10px auto;
   width: 25%;
   padding: 10px;
   text-align: center;
@@ -12,3 +12,22 @@
 .form-element {
   margin-top: 8px;
 }
+
+.mat-raised-button {
+  margin-top: 8px;
+}
+
+.form-element {
+  width: 75%;
+}
+
+.mat-headline {
+  font-weight: normal;
+  font-size: 32px;
+  color: white;
+}
+
+.mat-card {
+  background: #673AB7;
+}
+
