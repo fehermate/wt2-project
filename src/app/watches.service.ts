@@ -7,22 +7,24 @@ import {HttpClient} from "@angular/common/http";
   providedIn: 'root'
 })
 export class WatchesService {
-  constructor(private http:HttpClient) { }
-  url: string = "http://localhost:3000/api"
+  watches: Watch[] = [];
+  url: string = "http://localhost:3000/"
 
-  getAll(): Observable<Watch[]> {
-    return this.http.get<Watch[]>(this.url + '/get-all');
+  constructor(private http: HttpClient) { }
+
+  listWatches(): Observable<Watch[]> {
+    return this.http.get<Watch[]>(this.url + '/watches');
   }
 
-  add(watch: Watch): Observable<Watch> {
-    return this.http.post<Watch>(this.url + '/add', watch);
+  addWatch(watch: Watch): Observable<Watch> {
+    return this.http.post<Watch>(this.url + '/watches', watch);
   }
 
-  update(watch: Watch): Observable<Watch> {
-    return this.http.put<Watch>(this.url + '/update', watch);
+  updateWatch(watch: Watch): Observable<Watch> {
+    return this.http.put<Watch>(this.url + '/watches', watch);
   }
 
-  delete(watch: Watch): Observable<Watch> {
-    return this.http.delete<Watch>(this.url + '/delete/' + watch.model);
+  deleteWatch(watch: Watch): Observable<Watch> {
+    return this.http.delete<Watch>(this.url + '/watches/' + watch._id);
   }
 }

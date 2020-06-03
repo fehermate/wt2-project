@@ -4,7 +4,7 @@ import { WatchesService } from "../watches.service";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatSort} from "@angular/material/sort";
 import {MatPaginator} from "@angular/material/paginator";
-//import {Watch} from "../watch";
+import {Watch} from "../watch";
 
 @Component({
   selector: 'app-watch',
@@ -14,22 +14,31 @@ import {MatPaginator} from "@angular/material/paginator";
 
 
 export class WatchComponent implements OnInit {
-  watches: Watch[];
-  dataSource =  new MatTableDataSource(DATA);
-  columnsToDisplay = ["price", "brand", "model", "gender", "movement", "caseMaterial", "increasePrice", "delete"];
-  expandedWatch: Watch | null;
+  constructor(private service: WatchesService) {}
 
+  watches: Watch[];
+
+  ngOnInit() {
+    this.getWatches();
+    this.dataSource = new MatTableDataSource(this.watches);
+  }
+
+  dataSource = new MatTableDataSource(this.watches);
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-  constructor(service: WatchesService) {
-    //this.watches = service.getAll().subscribe();
-  }
+  columnsToDisplay = ["price", "brand", "model", "gender", "movement", "caseMaterial", "increasePrice", "delete"];
 
-  ngOnInit(): void {
-    this.dataSource = new MatTableDataSource(DATA);
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+  getWatches() {
+    this.service.listWatches().subscribe((watches) => {
+      this.watches = watches;
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+      this.dataSource = new MatTableDataSource(this.watches);
+      this.dataSource._updateChangeSubscription();
+    }, (err) => {
+      alert("An error occured while getting watches : " + err.message);
+    });
   }
 
   applyFilter(event: Event) {
@@ -38,132 +47,24 @@ export class WatchComponent implements OnInit {
   }
 
   delete(watch: Watch) {
-    //console.log(model);
-    const index = this.dataSource.data.indexOf(watch);
-    this.dataSource.data.splice(index, 1);
-    this.dataSource._updateChangeSubscription();
+    this.service.deleteWatch(watch).subscribe(() => {
+      alert("The deletion of the watch was successful.");
+      this.getWatches();
+    }, (err) => {
+      alert("An error occured while deleting the watch : " + err.message);
+      this.getWatches();
+    });
   }
 
   increasePrice(watch: Watch) {
-    const index = this.dataSource.data.indexOf(watch);
-    this.dataSource.data[index].price+=100;
-    this.dataSource._updateChangeSubscription();
+    watch.price += 100;
+    this.service.updateWatch(watch).subscribe(() => {
+      alert("The watch price was increased to " + "$" + watch.price);
+      this.getWatches();
+    }, (err) => {
+      alert("An error occured while increasing the watch price : " + err.message);
+      this.getWatches();
+    });
   }
 
 }
-
-export interface Watch {
-  price: number,
-  brand: string,
-  model: string,
-  gender: string,
-  movement: string,
-  caseMaterial: string
-}
-
-const DATA: Watch[] = [
-  {
-    price: 250.0,
-    brand: "brand",
-    model: "model",
-    gender: "F",
-    movement: "automatic",
-    caseMaterial: "steel"
-  },
-  {
-    price: 500.0,
-    brand: "brand2",
-    model: "model2",
-    gender: "M",
-    movement: "quartz",
-    caseMaterial: "plastic"
-  },
-  {
-    price: 500.0,
-    brand: "brand2",
-    model: "model2",
-    gender: "M",
-    movement: "quartz",
-    caseMaterial: "plastic"
-  },
-  {
-    price: 500.0,
-    brand: "brand2",
-    model: "model2",
-    gender: "M",
-    movement: "quartz",
-    caseMaterial: "plastic"
-  },
-  {
-    price: 500.0,
-    brand: "brand2",
-    model: "model2",
-    gender: "M",
-    movement: "quartz",
-    caseMaterial: "plastic"
-  },
-  {
-    price: 500.0,
-    brand: "brand2",
-    model: "model2",
-    gender: "M",
-    movement: "quartz",
-    caseMaterial: "plastic"
-  },
-  {
-    price: 500.0,
-    brand: "brand2",
-    model: "model2",
-    gender: "M",
-    movement: "quartz",
-    caseMaterial: "plastic"
-  },
-  {
-    price: 500.0,
-    brand: "brand2",
-    model: "model2",
-    gender: "M",
-    movement: "quartz",
-    caseMaterial: "plastic"
-  },
-  {
-    price: 500.0,
-    brand: "brand2",
-    model: "model2",
-    gender: "M",
-    movement: "quartz",
-    caseMaterial: "plastic"
-  },
-  {
-    price: 500.0,
-    brand: "brand2",
-    model: "model2",
-    gender: "M",
-    movement: "quartz",
-    caseMaterial: "plastic"
-  },
-  {
-    price: 500.0,
-    brand: "brand2",
-    model: "model2",
-    gender: "M",
-    movement: "quartz",
-    caseMaterial: "plastic"
-  },
-  {
-    price: 500.0,
-    brand: "brand2",
-    model: "model2",
-    gender: "M",
-    movement: "quartz",
-    caseMaterial: "plastic"
-  },
-  {
-    price: 500.0,
-    brand: "brand2",
-    model: "model2",
-    gender: "M",
-    movement: "quartz",
-    caseMaterial: "plastic"
-  },
-];

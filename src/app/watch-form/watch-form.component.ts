@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import {FormGroup, FormControl, Validators} from '@angular/forms';
+import {WatchesService} from "../watches.service";
+import {Watch} from "../watch";
 @Component({
   selector: 'app-watch-form',
   templateUrl: './watch-form.component.html',
   styleUrls: ['./watch-form.component.css']
 })
 export class WatchFormComponent implements OnInit {
+  watch: Watch;
 
   price = new FormControl('', [Validators.required, Validators.min(1)]);
   brand = new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(24)]);
@@ -26,10 +29,9 @@ export class WatchFormComponent implements OnInit {
     }
   )
 
-  constructor() { }
+  constructor(private service: WatchesService) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(){}
 
   getErrorMessage() {
     let errors: string[];
@@ -55,7 +57,16 @@ export class WatchFormComponent implements OnInit {
   }
 
   onSubmit(){
-    alert("Watch submitted to database.");
+    let watch = this.watchForm.value;
+    this.service.addWatch(watch).subscribe(() => {
+      alert("Watch submitted to database.");
+      this.watchForm.controls['price'].setValue(0);
+      this.watchForm.controls['brand'].setValue("");
+      this.watchForm.controls['model'].setValue("");
+    }, (err) => {
+      alert("An error has occured while submitting watch to database : " + err.message);
+    })
+
   }
 
 }
