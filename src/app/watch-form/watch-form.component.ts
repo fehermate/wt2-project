@@ -34,17 +34,12 @@ export class WatchFormComponent implements OnInit {
   ngOnInit(){}
 
   getErrorMessage() {
-    let errors: string[];
     if (this.price.hasError('required') ||
       this.brand.hasError('required') ||
       this.model.hasError('required')
     ) {
-      return ('You must enter a value');
+      return ('You must enter a valid value.');
     }
-
-    return this.price.hasError('min') ? 'Not a valid length' : '';
-
-    return errors;
   }
 
   getErrorMessageForOptions() {
@@ -52,7 +47,7 @@ export class WatchFormComponent implements OnInit {
       this.movement.hasError('required') ||
       this.caseMaterial.hasError('required')
     ) {
-      return 'You must choose a value';
+      return 'You must choose a value.';
     }
   }
 
