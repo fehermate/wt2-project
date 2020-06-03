@@ -22,7 +22,7 @@ export async function updateWatch(watch: Watch) {
 }
 
 export async function deleteWatch(watchId: string) {
-  await mongoDBService.deleteOneCollection("watches", {_id: new ObjectId(watchId) });
+  await mongoDBService.deleteOneCollection("Watches", {_id: new ObjectId(watchId) });
 }
 
 

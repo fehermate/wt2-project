@@ -60,9 +60,9 @@ export class WatchFormComponent implements OnInit {
     let watch = this.watchForm.value;
     this.service.addWatch(watch).subscribe(() => {
       alert("Watch submitted to database.");
-      this.watchForm.controls['price'].setValue(0);
-      this.watchForm.controls['brand'].setValue("");
-      this.watchForm.controls['model'].setValue("");
+      this.watchForm.controls['price'].reset();
+      this.watchForm.controls['brand'].reset();
+      this.watchForm.controls['model'].reset();
     }, (err) => {
       alert("An error has occured while submitting watch to database : " + err.message);
     })

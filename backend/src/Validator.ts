@@ -4,7 +4,6 @@ import { Error } from "./Model/Error";
 export class Validator {
   static watchPostError(watch: Watch): Error[] {
     let errors: Error[] = [];
-    console.log("Validator-WatchPostError-Watch: " + watch);
 
     if(!watch) {
       errors.push(

@@ -53,12 +53,15 @@ app.post('/watches', async function (req, res) {
 
 app.get('/watches', async function (req, res) {
   let watches: Watch[] = [];
+
   try {
     watches = await listWatchCollection();
   } catch (ex) {
     console.log(ex);
     return res.status(500).send(ex);
   }
+
+  return res.status(200).send(watches);
 });
 
 app.put('/watches', async function (req, res) {

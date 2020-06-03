@@ -1,10 +1,9 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {animate, state, style, transition, trigger} from '@angular/animations';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { WatchesService } from "../watches.service";
-import {MatTableDataSource} from "@angular/material/table";
-import {MatSort} from "@angular/material/sort";
-import {MatPaginator} from "@angular/material/paginator";
-import {Watch} from "../watch";
+import { MatTableDataSource } from "@angular/material/table";
+import { MatSort } from "@angular/material/sort";
+import { MatPaginator } from "@angular/material/paginator";
+import { Watch } from "../watch";
 
 @Component({
   selector: 'app-watch',
@@ -12,32 +11,29 @@ import {Watch} from "../watch";
   styleUrls: ['./watch.component.css']
 })
 
-
 export class WatchComponent implements OnInit {
+  watches: Watch[];
   constructor(private service: WatchesService) {}
 
-  watches: Watch[];
+  dataSource = new MatTableDataSource(this.watches);
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   ngOnInit() {
     this.getWatches();
     this.dataSource = new MatTableDataSource(this.watches);
   }
 
-  dataSource = new MatTableDataSource(this.watches);
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
-
-  columnsToDisplay = ["price", "brand", "model", "gender", "movement", "caseMaterial", "increasePrice", "delete"];
+  columnsToDisplay: string[] = ["price", "brand", "model", "gender", "movement", "caseMaterial", "increasePrice", "delete"];
 
   getWatches() {
-    this.service.listWatches().subscribe((watches) => {
+    this.service.listWatches().subscribe(watches => {
       this.watches = watches;
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
+      setTimeout(() => this.dataSource.paginator = this.paginator);
+      setTimeout(() => this.dataSource.sort = this.sort);
       this.dataSource = new MatTableDataSource(this.watches);
-      this.dataSource._updateChangeSubscription();
     }, (err) => {
-      alert("An error occured while getting watches : " + err.message);
+      alert("An error occurred while getting watches : " + err.message);
     });
   }
 
@@ -51,7 +47,7 @@ export class WatchComponent implements OnInit {
       alert("The deletion of the watch was successful.");
       this.getWatches();
     }, (err) => {
-      alert("An error occured while deleting the watch : " + err.message);
+      alert("An error occurred while deleting the watch : " + err.message);
       this.getWatches();
     });
   }
@@ -62,7 +58,7 @@ export class WatchComponent implements OnInit {
       alert("The watch price was increased to " + "$" + watch.price);
       this.getWatches();
     }, (err) => {
-      alert("An error occured while increasing the watch price : " + err.message);
+      alert("An error occurred while increasing the watch price : " + err.message);
       this.getWatches();
     });
   }

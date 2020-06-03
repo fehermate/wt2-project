@@ -8,7 +8,7 @@ import {HttpClient} from "@angular/common/http";
 })
 export class WatchesService {
   watches: Watch[] = [];
-  url: string = "http://localhost:3000/"
+  url: string = "http://localhost:3000"
 
   constructor(private http: HttpClient) { }
 
