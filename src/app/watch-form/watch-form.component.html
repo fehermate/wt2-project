@@ -8,7 +8,7 @@
   <form [formGroup]="watchForm" (ngSubmit)="onSubmit()">
     <mat-form-field class="form-element" appearance="fill">
       <mat-label>Price</mat-label>
-      <input matInput placeholder="$1500" [formControl]="price" required>
+      <input type="number" matInput placeholder="eg. 1500" [formControl]="price" required>
       <mat-error *ngIf="price.invalid">{{getErrorMessage()}}</mat-error>
     </mat-form-field>
 
@@ -16,7 +16,7 @@
 
     <mat-form-field class="form-element" appearance="fill">
       <mat-label>Brand</mat-label>
-      <input matInput placeholder="Rolex" [formControl]="brand" required>
+      <input matInput placeholder="eg. Rolex" [formControl]="brand" required>
       <mat-error *ngIf="brand.invalid">{{getErrorMessage()}}</mat-error>
     </mat-form-field>
 
@@ -24,7 +24,7 @@
 
     <mat-form-field class="form-element" appearance="fill">
       <mat-label>Model</mat-label>
-      <input matInput placeholder="Submariner" [formControl]="model" required>
+      <input matInput placeholder="eg. Submariner" [formControl]="model" required>
       <mat-error *ngIf="model.invalid">{{getErrorMessage()}}</mat-error>
     </mat-form-field>
 
@@ -36,6 +36,7 @@
         <mat-option value="F">Female</mat-option>
         <mat-option value="M">Male</mat-option>
       </mat-select>
+      <mat-error *ngIf="gender.invalid">{{getErrorMessageForOptions()}}</mat-error>
     </mat-form-field>
 
     <mat-divider></mat-divider>
@@ -46,6 +47,7 @@
         <mat-option value="quartz">Quartz</mat-option>
         <mat-option value="Mechanical">Mechanical</mat-option>
       </mat-select>
+      <mat-error *ngIf="movement.invalid">{{getErrorMessageForOptions()}}</mat-error>
     </mat-form-field>
 
     <mat-divider></mat-divider>
@@ -57,6 +59,7 @@
         <mat-option value="plastic">Plastic</mat-option>
         <mat-option value="precious">Precious Metal</mat-option>
       </mat-select>
+      <mat-error *ngIf="caseMaterial.invalid">{{getErrorMessageForOptions()}}</mat-error>
     </mat-form-field>
 
     <mat-divider></mat-divider>

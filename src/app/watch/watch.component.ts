@@ -16,7 +16,7 @@ import {MatPaginator} from "@angular/material/paginator";
 export class WatchComponent implements OnInit {
   watches: Watch[];
   dataSource =  new MatTableDataSource(DATA);
-  columnsToDisplay = ["price", "brand", "model", "gender", "movement", "caseMaterial", "delete"];
+  columnsToDisplay = ["price", "brand", "model", "gender", "movement", "caseMaterial", "increasePrice", "delete"];
   expandedWatch: Watch | null;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -41,6 +41,12 @@ export class WatchComponent implements OnInit {
     //console.log(model);
     const index = this.dataSource.data.indexOf(watch);
     this.dataSource.data.splice(index, 1);
+    this.dataSource._updateChangeSubscription();
+  }
+
+  increasePrice(watch: Watch) {
+    const index = this.dataSource.data.indexOf(watch);
+    this.dataSource.data[index].price+=100;
     this.dataSource._updateChangeSubscription();
   }
 

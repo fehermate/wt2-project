@@ -10,9 +10,9 @@ export class WatchFormComponent implements OnInit {
   price = new FormControl('', [Validators.required, Validators.min(1)]);
   brand = new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(24)]);
   model = new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(24)]);
-  gender = new FormControl('', [Validators.required]);
-  movement = new FormControl('', [Validators.required]);
-  caseMaterial = new FormControl('', [Validators.required]);
+  gender = new FormControl('', Validators.required);
+  movement = new FormControl('', Validators.required);
+  caseMaterial = new FormControl('', Validators.required);
 
 
   watchForm = new FormGroup(
@@ -32,21 +32,30 @@ export class WatchFormComponent implements OnInit {
   }
 
   getErrorMessage() {
+    let errors: string[];
     if (this.price.hasError('required') ||
       this.brand.hasError('required') ||
-      this.model.hasError('required') ||
-      this.gender.hasError('required') ||
-      this.movement.hasError('required') ||
-      this.caseMaterial.hasError('required')
-  ) {
-      return 'You must enter a value';
+      this.model.hasError('required')
+    ) {
+      return ('You must enter a value');
     }
 
-    return this.watchForm.hasError('length') ? 'Not a valid length' : '';
+    return this.price.hasError('min') ? 'Not a valid length' : '';
+
+    return errors;
+  }
+
+  getErrorMessageForOptions() {
+    if (this.gender.hasError('required') ||
+      this.movement.hasError('required') ||
+      this.caseMaterial.hasError('required')
+    ) {
+      return 'You must choose a value';
+    }
   }
 
   onSubmit(){
-    console.log("submit!");
+    alert("Watch submitted to database.");
   }
 
 }

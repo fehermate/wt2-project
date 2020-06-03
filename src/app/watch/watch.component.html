@@ -43,12 +43,20 @@
              *matCellDef="let watch">{{watch.caseMaterial}}</mat-cell>
       </ng-container>
 
+      <ng-container matColumnDef="increasePrice">
+        <mat-header-cell *matHeaderCellDef>Increase Price</mat-header-cell>
+        <mat-cell class="duration-cell" *matCellDef="let watch">
+          <button (click)="increasePrice(watch)" mat-raised-button color="accent" >+<mat-icon>attach_money</mat-icon>100</button>
+        </mat-cell>
+      </ng-container>
+
       <ng-container matColumnDef="delete">
         <mat-header-cell *matHeaderCellDef>Delete</mat-header-cell>
         <mat-cell class="duration-cell" *matCellDef="let watch">
           <button (click)="delete(watch)" mat-raised-button color="warn" ><mat-icon>delete</mat-icon></button>
         </mat-cell>
       </ng-container>
+
 
       <mat-header-row *matHeaderRowDef="columnsToDisplay; sticky: true"></mat-header-row>
 
